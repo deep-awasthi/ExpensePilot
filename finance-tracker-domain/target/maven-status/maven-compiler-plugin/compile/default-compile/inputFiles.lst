@@ -1,0 +1,12 @@
+/Users/deepawasthi/Developer/ExpensePilot/finance-tracker-domain/src/main/java/com/flowbridge/finance/domain/exception/AuthenticationException.java
+/Users/deepawasthi/Developer/ExpensePilot/finance-tracker-domain/src/main/java/com/flowbridge/finance/domain/exception/BudgetExceededException.java
+/Users/deepawasthi/Developer/ExpensePilot/finance-tracker-domain/src/main/java/com/flowbridge/finance/domain/exception/EmailAlreadyExistsException.java
+/Users/deepawasthi/Developer/ExpensePilot/finance-tracker-domain/src/main/java/com/flowbridge/finance/domain/exception/ResourceNotFoundException.java
+/Users/deepawasthi/Developer/ExpensePilot/finance-tracker-domain/src/main/java/com/flowbridge/finance/domain/model/AuditEvent.java
+/Users/deepawasthi/Developer/ExpensePilot/finance-tracker-domain/src/main/java/com/flowbridge/finance/domain/model/Budget.java
+/Users/deepawasthi/Developer/ExpensePilot/finance-tracker-domain/src/main/java/com/flowbridge/finance/domain/model/BudgetPeriod.java
+/Users/deepawasthi/Developer/ExpensePilot/finance-tracker-domain/src/main/java/com/flowbridge/finance/domain/model/Category.java
+/Users/deepawasthi/Developer/ExpensePilot/finance-tracker-domain/src/main/java/com/flowbridge/finance/domain/model/Role.java
+/Users/deepawasthi/Developer/ExpensePilot/finance-tracker-domain/src/main/java/com/flowbridge/finance/domain/model/Transaction.java
+/Users/deepawasthi/Developer/ExpensePilot/finance-tracker-domain/src/main/java/com/flowbridge/finance/domain/model/TransactionType.java
+/Users/deepawasthi/Developer/ExpensePilot/finance-tracker-domain/src/main/java/com/flowbridge/finance/domain/model/User.java

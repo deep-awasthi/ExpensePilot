@@ -1,0 +1,16 @@
+com/flowbridge/finance/domain/model/Transaction$Builder.class
+com/flowbridge/finance/domain/model/Category.class
+com/flowbridge/finance/domain/model/Role.class
+com/flowbridge/finance/domain/model/TransactionType.class
+com/flowbridge/finance/domain/model/AuditEvent$Builder.class
+com/flowbridge/finance/domain/model/Budget.class
+com/flowbridge/finance/domain/model/User.class
+com/flowbridge/finance/domain/model/AuditEvent.class
+com/flowbridge/finance/domain/exception/ResourceNotFoundException.class
+com/flowbridge/finance/domain/model/Budget$Builder.class
+com/flowbridge/finance/domain/exception/EmailAlreadyExistsException.class
+com/flowbridge/finance/domain/model/BudgetPeriod.class
+com/flowbridge/finance/domain/model/User$Builder.class
+com/flowbridge/finance/domain/model/Transaction.class
+com/flowbridge/finance/domain/exception/BudgetExceededException.class
+com/flowbridge/finance/domain/exception/AuthenticationException.class

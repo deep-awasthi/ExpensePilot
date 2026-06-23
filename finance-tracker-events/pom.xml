@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.flowbridge.finance</groupId>
+        <artifactId>flowbridge-finance-tracker</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>finance-tracker-events</artifactId>
+    <name>Finance Tracker Events</name>
+    <description>FlowBridge event publishers, consumers, and payloads</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.flowbridge.finance</groupId>
+            <artifactId>finance-tracker-application</artifactId>
+        </dependency>
+
+        <!-- FlowBridge Spring Boot Starter -->
+        <dependency>
+            <groupId>org.flowbridge</groupId>
+            <artifactId>flowbridge-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>

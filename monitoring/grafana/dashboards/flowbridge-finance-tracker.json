@@ -1,0 +1,187 @@
+{
+  "id": null,
+  "uid": "flowbridge-finance-tracker",
+  "title": "FlowBridge Finance Tracker",
+  "description": "Real-time event bus metrics, DLQ health, and JVM observability",
+  "tags": ["flowbridge", "finance", "event-bus"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "15s",
+  "time": { "from": "now-1h", "to": "now" },
+  "templating": { "list": [] },
+  "annotations": { "list": [] },
+  "panels": [
+    {
+      "id": 1,
+      "type": "stat",
+      "title": "Events Published (Total)",
+      "gridPos": { "x": 0, "y": 0, "w": 6, "h": 4 },
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background", "graphMode": "area", "orientation": "auto" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "thresholds": { "steps": [{ "color": "green", "value": null }] },
+          "unit": "short"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(flowbridge_events_published_total{status=\"success\"})",
+          "legendFormat": "Published OK",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "stat",
+      "title": "Events Publish Failures",
+      "gridPos": { "x": 6, "y": 0, "w": 6, "h": 4 },
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background", "graphMode": "area", "orientation": "auto" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "thresholds": { "steps": [{ "color": "green", "value": null }, { "color": "red", "value": 1 }] },
+          "unit": "short"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(flowbridge_events_published_total{status=\"failure\"})",
+          "legendFormat": "Publish Failures",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "type": "stat",
+      "title": "Events Consumed (Total)",
+      "gridPos": { "x": 12, "y": 0, "w": 6, "h": 4 },
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background", "graphMode": "area" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "thresholds": { "steps": [{ "color": "blue", "value": null }] },
+          "unit": "short"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(flowbridge_events_consumed_total{status=\"success\"})",
+          "legendFormat": "Consumed OK",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "type": "stat",
+      "title": "Dead Letter Queue Size",
+      "gridPos": { "x": 18, "y": 0, "w": 6, "h": 4 },
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background", "graphMode": "none" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "thresholds": { "steps": [{ "color": "green", "value": null }, { "color": "yellow", "value": 1 }, { "color": "red", "value": 10 }] },
+          "unit": "short"
+        }
+      },
+      "targets": [
+        {
+          "expr": "flowbridge_dlq_size",
+          "legendFormat": "DLQ Size",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "type": "timeseries",
+      "title": "Event Publish Rate by Topic",
+      "gridPos": { "x": 0, "y": 4, "w": 12, "h": 8 },
+      "options": { "tooltip": { "mode": "multi" }, "legend": { "displayMode": "list", "placement": "bottom" } },
+      "fieldConfig": {
+        "defaults": { "unit": "reqps", "custom": { "lineWidth": 2 } }
+      },
+      "targets": [
+        {
+          "expr": "rate(flowbridge_events_published_total{status=\"success\"}[1m])",
+          "legendFormat": "{{topic}} - success",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(flowbridge_events_published_total{status=\"failure\"}[1m])",
+          "legendFormat": "{{topic}} - failure",
+          "refId": "B"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "type": "timeseries",
+      "title": "Event Consumption Rate by Topic",
+      "gridPos": { "x": 12, "y": 4, "w": 12, "h": 8 },
+      "options": { "tooltip": { "mode": "multi" }, "legend": { "displayMode": "list", "placement": "bottom" } },
+      "fieldConfig": {
+        "defaults": { "unit": "reqps", "custom": { "lineWidth": 2 } }
+      },
+      "targets": [
+        {
+          "expr": "rate(flowbridge_events_consumed_total[1m])",
+          "legendFormat": "{{topic}} - {{status}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "type": "timeseries",
+      "title": "JVM Heap Memory Used",
+      "gridPos": { "x": 0, "y": 12, "w": 12, "h": 8 },
+      "fieldConfig": { "defaults": { "unit": "bytes" } },
+      "targets": [
+        {
+          "expr": "jvm_memory_used_bytes{area=\"heap\"}",
+          "legendFormat": "{{id}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "type": "timeseries",
+      "title": "HTTP Request Duration (p99)",
+      "gridPos": { "x": 12, "y": 12, "w": 12, "h": 8 },
+      "fieldConfig": { "defaults": { "unit": "s" } },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.99, sum(rate(http_server_requests_seconds_bucket[5m])) by (le, uri, method))",
+          "legendFormat": "{{method}} {{uri}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "type": "timeseries",
+      "title": "DLQ Size Over Time",
+      "gridPos": { "x": 0, "y": 20, "w": 24, "h": 6 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "custom": { "lineWidth": 2, "fillOpacity": 20 },
+          "color": { "fixedColor": "orange", "mode": "fixed" }
+        }
+      },
+      "targets": [
+        {
+          "expr": "flowbridge_dlq_size",
+          "legendFormat": "DLQ Size",
+          "refId": "A"
+        }
+      ]
+    }
+  ]
+}

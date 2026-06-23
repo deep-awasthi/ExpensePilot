@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.0</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>com.flowbridge.finance</groupId>
+    <artifactId>flowbridge-finance-tracker</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>FlowBridge Finance Tracker Parent</name>
+    <description>A production-grade personal finance management platform using FlowBridge event-driven layer</description>
+
+    <properties>
+        <java.version>21</java.version>
+        <flowbridge.version>1.0.0-SNAPSHOT</flowbridge.version>
+        <jjwt.version>0.12.5</jjwt.version>
+        <springdoc.version>2.5.0</springdoc.version>
+        <bucket4j.version>8.10.1</bucket4j.version>
+        <lombok.version>1.18.34</lombok.version>
+    </properties>
+
+    <modules>
+        <module>finance-tracker-domain</module>
+        <module>finance-tracker-application</module>
+        <module>finance-tracker-infrastructure</module>
+        <module>finance-tracker-events</module>
+        <module>finance-tracker-api</module>
+        <module>finance-tracker-tests</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- FlowBridge Core & Providers -->
+            <dependency>
+                <groupId>org.flowbridge</groupId>
+                <artifactId>flowbridge-core</artifactId>
+                <version>${flowbridge.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flowbridge</groupId>
+                <artifactId>flowbridge-local</artifactId>
+                <version>${flowbridge.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flowbridge</groupId>
+                <artifactId>flowbridge-embedded</artifactId>
+                <version>${flowbridge.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flowbridge</groupId>
+                <artifactId>flowbridge-kafka</artifactId>
+                <version>${flowbridge.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flowbridge</groupId>
+                <artifactId>flowbridge-spring-boot-starter</artifactId>
+                <version>${flowbridge.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flowbridge</groupId>
+                <artifactId>flowbridge-dashboard</artifactId>
+                <version>${flowbridge.version}</version>
+            </dependency>
+
+            <!-- Project Submodules -->
+            <dependency>
+                <groupId>com.flowbridge.finance</groupId>
+                <artifactId>finance-tracker-domain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.flowbridge.finance</groupId>
+                <artifactId>finance-tracker-application</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.flowbridge.finance</groupId>
+                <artifactId>finance-tracker-infrastructure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.flowbridge.finance</groupId>
+                <artifactId>finance-tracker-events</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.flowbridge.finance</groupId>
+                <artifactId>finance-tracker-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- JWT -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jjwt.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jjwt.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+
+            <!-- OpenAPI Documentation -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+
+            <!-- Rate Limiting -->
+            <dependency>
+                <groupId>com.bucket4j</groupId>
+                <artifactId>bucket4j-core</artifactId>
+                <version>${bucket4j.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.13.0</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <compilerArgs>
+                            <arg>-parameters</arg>
+                        </compilerArgs>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>

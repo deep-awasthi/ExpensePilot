@@ -1,0 +1,120 @@
+### FlowBridge Finance Tracker API Requests Reference
+# This file contains the API endpoints that will be implemented and verified in subsequent phases.
+
+# Base URL Configuration
+@baseUrl = http://localhost:8080/api/v1
+
+### Phase 2: Authentication
+# Registration
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "password": "SecurePassword123"
+}
+
+###
+
+# Login
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "john.doe@example.com",
+  "password": "SecurePassword123"
+}
+
+###
+
+# Get JWT token from login response
+@authToken = {{login.response.body.accessToken}}
+@refreshToken = {{login.response.body.refreshToken}}
+
+###
+
+# Refresh Token
+POST {{baseUrl}}/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "{{refreshToken}}"
+}
+
+###
+
+# Logout
+POST {{baseUrl}}/auth/logout
+Authorization: Bearer {{authToken}}
+
+###
+
+
+### Phase 3: Transactions
+# Create Transaction (Expense/Income)
+POST {{baseUrl}}/transactions
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "type": "EXPENSE",
+  "category": "FOOD",
+  "amount": 49.99,
+  "description": "Weekly grocery shopping",
+  "transactionDate": "2026-06-24T12:00:00Z"
+}
+
+###
+
+# Get All Transactions
+GET {{baseUrl}}/transactions
+Authorization: Bearer {{authToken}}
+
+###
+
+
+### Phase 4: Budgets
+# Create Budget
+POST {{baseUrl}}/budgets
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "category": "FOOD",
+  "limitAmount": 500.00,
+  "period": "MONTHLY"
+}
+
+###
+
+# Get Budgets
+GET {{baseUrl}}/budgets
+Authorization: Bearer {{authToken}}
+
+###
+
+
+### Phase 6: Admin Replay & DLQ
+# Trigger Event Replay
+POST {{baseUrl}}/admin/replay
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "topic": "transaction.created",
+  "replayType": "ALL"
+}
+
+###
+
+# List DLQ Failed Events
+GET {{baseUrl}}/admin/dlq
+Authorization: Bearer {{authToken}}
+
+###
+
+# Retry DLQ Event
+POST {{baseUrl}}/admin/dlq/retry?eventId=some-uuid
+Authorization: Bearer {{authToken}}

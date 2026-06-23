@@ -1,0 +1,12 @@
+com/flowbridge/finance/events/BudgetExceededEvent.class
+com/flowbridge/finance/events/FinanceTopics.class
+com/flowbridge/finance/events/config/FlowBridgeLocalFallbackConfig.class
+com/flowbridge/finance/events/TransactionCreatedEvent.class
+com/flowbridge/finance/events/BudgetCreatedEvent.class
+com/flowbridge/finance/events/config/FlowBridgeLocalFallbackConfig$1.class
+com/flowbridge/finance/events/consumer/TransactionEventConsumer.class
+com/flowbridge/finance/events/consumer/AuditEventConsumer.class
+com/flowbridge/finance/events/publisher/BudgetEventPublisher.class
+com/flowbridge/finance/events/consumer/BudgetEventConsumer.class
+com/flowbridge/finance/events/publisher/TransactionEventPublisher.class
+com/flowbridge/finance/events/config/FlowBridgeLocalFallbackConfig$2.class
